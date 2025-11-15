@@ -44,7 +44,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nombre\": \"Juan Pérez\",\n  \"email\": \"juan.perez@email.com\",\n  \"telefono\": \"+57 300 123 4567\"\n}"
+              "raw": "{\n  \"name\": \"Juan Pérez\",\n  \"email\": \"juan.perez@email.com\",\n  \"phone\": \"+57 300 123 4567\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/clients",
@@ -65,7 +65,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nombre\": \"Juan Pérez Actualizado\",\n  \"telefono\": \"+57 300 987 6543\"\n}"
+              "raw": "{\n  \"name\": \"Juan Pérez Actualizado\",\n  \"phone\": \"+57 300 987 6543\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/clients/1",
@@ -127,7 +127,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nombre\": \"Laptop Dell\",\n  \"precio\": 2500000,\n  \"stock\": 10\n}"
+              "raw": "{\n  \"name\": \"Laptop Dell\",\n  \"price\": 2500000,\n  \"stock\": 10\n}"
             },
             "url": {
               "raw": "{{base_url}}/products",
@@ -148,7 +148,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nombre\": \"Laptop Dell Inspiron\",\n  \"precio\": 2600000\n}"
+              "raw": "{\n  \"name\": \"Laptop Dell Inspiron\",\n  \"price\": 2600000\n}"
             },
             "url": {
               "raw": "{{base_url}}/products/1",
@@ -243,7 +243,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"cliente_id\": 1,\n  \"productos\": [\n    {\n      \"producto_id\": 1,\n      \"cantidad\": 2\n    },\n    {\n      \"producto_id\": 2,\n      \"cantidad\": 1\n    }\n  ]\n}"
+              "raw": "{\n  \"client_id\": 1,\n  \"products\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 2\n    },\n    {\n      \"product_id\": 2,\n      \"quantity\": 1\n    }\n  ]\n}"
             },
             "url": {
               "raw": "{{base_url}}/sales",

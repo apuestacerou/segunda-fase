@@ -4,7 +4,7 @@ import { Client, CreateClientRequest, UpdateClientRequest } from '../types';
 export class ClientRepository {
   async findAll(): Promise<Client[]> {
     const clients = await ClientModel.findAll({
-      order: [['fecha_creacion', 'DESC']],
+      order: [['created_at', 'DESC']],
     });
     return clients.map(client => client.toJSON() as Client);
   }

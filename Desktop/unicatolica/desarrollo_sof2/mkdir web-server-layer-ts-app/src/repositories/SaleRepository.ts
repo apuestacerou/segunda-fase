@@ -61,17 +61,17 @@ export class SaleRepository {
       // Crear la venta
       const sale = await SaleModel.create(
         {
-          cliente_id: saleData.cliente_id,
+          cliente_id: saleData.client_id,
           total: 0, // Se calculará después
         },
         { transaction: t }
       );
 
       // Crear los productos de la venta
-      const saleProducts = saleData.productos.map(producto => ({
+      const saleProducts = saleData.products.map(producto => ({
         venta_id: sale.id,
-        producto_id: producto.producto_id,
-        cantidad: producto.cantidad,
+        producto_id: producto.product_id,
+        cantidad: producto.quantity,
         precio_unitario: 0, // Se obtendrá del producto
       }));
 

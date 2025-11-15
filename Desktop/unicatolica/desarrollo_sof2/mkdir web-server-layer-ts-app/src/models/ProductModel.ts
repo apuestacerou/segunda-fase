@@ -4,7 +4,7 @@ import { SaleProductModel } from './SaleProductModel';
 @Table({
   tableName: 'productos',
   timestamps: true,
-  createdAt: 'fecha_creacion',
+  createdAt: 'created_at',
   updatedAt: false,
 })
 export class ProductModel extends Model {
@@ -19,13 +19,13 @@ export class ProductModel extends Model {
     type: DataType.STRING(100),
     allowNull: false,
   })
-  nombre!: string;
+  name!: string;
 
   @Column({
     type: DataType.DECIMAL(10, 2),
     allowNull: false,
   })
-  precio!: number;
+  price!: number;
 
   @Column({
     type: DataType.INTEGER,
@@ -39,7 +39,7 @@ export class ProductModel extends Model {
     allowNull: false,
     defaultValue: DataType.NOW,
   })
-  fecha_creacion!: Date;
+  created_at!: Date;
 
   @HasMany(() => SaleProductModel)
   ventas_productos!: SaleProductModel[];

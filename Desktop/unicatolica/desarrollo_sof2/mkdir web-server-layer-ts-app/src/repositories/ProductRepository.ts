@@ -4,7 +4,7 @@ import { Product, CreateProductRequest, UpdateProductRequest } from '../types';
 export class ProductRepository {
   async findAll(): Promise<Product[]> {
     const products = await ProductModel.findAll({
-      order: [['fecha_creacion', 'DESC']],
+      order: [['created_at', 'DESC']],
     });
     return products.map(product => product.toJSON() as Product);
   }

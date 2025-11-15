@@ -21,11 +21,11 @@ export class ProductService {
 
   async createProduct(productData: CreateProductRequest): Promise<Product> {
     // Validaciones de negocio
-    if (!productData.nombre?.trim()) {
+    if (!productData.name?.trim()) {
       throw new Error('El nombre del producto es requerido');
     }
 
-    if (!productData.precio || productData.precio <= 0) {
+    if (!productData.price || productData.price <= 0) {
       throw new Error('El precio del producto debe ser mayor a 0');
     }
 
@@ -48,7 +48,7 @@ export class ProductService {
     }
 
     // Validaciones de negocio
-    if (productData.precio !== undefined && productData.precio <= 0) {
+    if (productData.price !== undefined && productData.price <= 0) {
       throw new Error('El precio del producto debe ser mayor a 0');
     }
 

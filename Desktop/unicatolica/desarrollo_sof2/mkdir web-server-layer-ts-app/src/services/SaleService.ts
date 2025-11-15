@@ -36,22 +36,22 @@ export class SaleService {
 
   async createSale(saleData: CreateSaleRequest): Promise<Sale> {
     // Validaciones de negocio
-    if (!saleData.cliente_id || saleData.cliente_id <= 0) {
+    if (!saleData.client_id || saleData.client_id <= 0) {
       throw new Error('ID de cliente inválido');
     }
 
-    if (!saleData.productos || saleData.productos.length === 0) {
+    if (!saleData.products || saleData.products.length === 0) {
       throw new Error('La venta debe incluir al menos un producto');
     }
 
     // Verificar que el cliente existe
-    const client = await this.clientRepository.findById(saleData.cliente_id);
+    const client = await this.clientRepository.findById(saleData.client_id);
     if (!client) {
       throw new Error('Cliente no encontrado');
     }
 
     // Obtener productos y verificar stock
-    const productIds = saleData.productos.map(p => p.producto_id);
+    const productIds = saleData.products.map(p => p.product_id);
     const products = await this.productRepository.findByIds(productIds);
 
     if (products.length !== productIds.length) {
@@ -64,47 +64,42 @@ export class SaleService {
 
     // Validar stock y calcular total
     let total = 0;
-    for (const saleProduct of saleData.productos) {
-      const product = productMap.get(saleProduct.producto_id);
+    for (const saleProduct of saleData.products) {
+      const product = productMap.get(saleProduct.product_id);
       if (!product) {
-        throw new Error(`Producto con ID ${saleProduct.producto_id} no encontrado`);
+        throw new Error(`Producto con ID ${saleProduct.product_id} no encontrado`);
       }
 
-      if (saleProduct.cantidad <= 0) {
-        throw new Error(`Cantidad inválida para producto ${product.nombre}`);
+      if (saleProduct.quantity <= 0) {
+        throw new Error(`Cantidad inválida para producto ${product.name}`);
       }
 
-      if (product.stock < saleProduct.cantidad) {
-        throw new Error(`Stock insuficiente para producto ${product.nombre}. Disponible: ${product.stock}`);
+      if (product.stock < saleProduct.quantity) {
+        throw new Error(`Stock insuficiente para producto ${product.name}. Disponible: ${product.stock}`);
       }
 
-      total += product.precio * saleProduct.cantidad;
+      total += product.price * saleProduct.quantity;
     }
 
-    // Usar transacción para asegurar atomicidad
-    const transaction = await sequelize.transaction();
-
+    // Simplificar: no usar transacción por ahora para evitar bloqueos
     try {
       // Crear la venta
-      const sale = await this.saleRepository.create(saleData, transaction);
+      const sale = await this.saleRepository.create(saleData);
 
       // Actualizar precios en los productos de la venta y reducir stock
-      for (const saleProduct of saleData.productos) {
-        const product = productMap.get(saleProduct.producto_id)!;
-        const newStock = product.stock - saleProduct.cantidad;
+      for (const saleProduct of saleData.products) {
+        const product = productMap.get(saleProduct.product_id)!;
+        const newStock = product.stock - saleProduct.quantity;
 
-        await this.productRepository.updateStock(saleProduct.producto_id, newStock);
+        await this.productRepository.updateStock(saleProduct.product_id, newStock);
       }
 
       // Actualizar el total de la venta
-      await this.saleRepository.updateTotal(sale.id!, total, transaction);
-
-      await transaction.commit();
+      await this.saleRepository.updateTotal(sale.id!, total);
 
       // Retornar la venta completa
       return this.getSaleById(sale.id!) as Promise<Sale>;
     } catch (error) {
-      await transaction.rollback();
       throw error;
     }
   }

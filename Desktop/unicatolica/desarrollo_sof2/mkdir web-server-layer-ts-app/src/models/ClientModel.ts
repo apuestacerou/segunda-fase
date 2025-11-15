@@ -4,7 +4,7 @@ import { SaleModel } from './SaleModel';
 @Table({
   tableName: 'clientes',
   timestamps: true,
-  createdAt: 'fecha_creacion',
+  createdAt: 'created_at',
   updatedAt: false,
 })
 export class ClientModel extends Model {
@@ -19,7 +19,7 @@ export class ClientModel extends Model {
     type: DataType.STRING(100),
     allowNull: false,
   })
-  nombre!: string;
+  name!: string;
 
   @Column({
     type: DataType.STRING(100),
@@ -32,14 +32,14 @@ export class ClientModel extends Model {
     type: DataType.STRING(20),
     allowNull: false,
   })
-  telefono!: string;
+  phone!: string;
 
   @Column({
     type: DataType.DATE,
     allowNull: false,
     defaultValue: DataType.NOW,
   })
-  fecha_creacion!: Date;
+  created_at!: Date;
 
   @HasMany(() => SaleModel)
   ventas!: SaleModel[];

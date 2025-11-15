@@ -21,7 +21,7 @@ export class ClientService {
 
   async createClient(clientData: CreateClientRequest): Promise<Client> {
     // Validaciones de negocio
-    if (!clientData.nombre?.trim()) {
+    if (!clientData.name?.trim()) {
       throw new Error('El nombre del cliente es requerido');
     }
 
@@ -29,7 +29,7 @@ export class ClientService {
       throw new Error('El email del cliente es requerido');
     }
 
-    if (!clientData.telefono?.trim()) {
+    if (!clientData.phone?.trim()) {
       throw new Error('El teléfono del cliente es requerido');
     }
 

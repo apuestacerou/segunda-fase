@@ -1,17 +1,17 @@
 export interface Client {
   id?: number;
-  nombre: string;
+  name: string;
   email: string;
-  telefono: string;
-  fecha_creacion?: Date;
+  phone: string;
+  created_at?: Date;
 }
 
 export interface Product {
   id?: number;
-  nombre: string;
-  precio: number;
+  name: string;
+  price: number;
   stock: number;
-  fecha_creacion?: Date;
+  created_at?: Date;
 }
 
 export interface Sale {
@@ -29,34 +29,34 @@ export interface SaleProduct {
 }
 
 export interface CreateClientRequest {
-  nombre: string;
+  name: string;
   email: string;
-  telefono: string;
+  phone: string;
 }
 
 export interface UpdateClientRequest {
-  nombre?: string;
+  name?: string;
   email?: string;
-  telefono?: string;
+  phone?: string;
 }
 
 export interface CreateProductRequest {
-  nombre: string;
-  precio: number;
+  name: string;
+  price: number;
   stock: number;
 }
 
 export interface UpdateProductRequest {
-  nombre?: string;
-  precio?: number;
+  name?: string;
+  price?: number;
   stock?: number;
 }
 
 export interface CreateSaleRequest {
-  cliente_id: number;
-  productos: {
-    producto_id: number;
-    cantidad: number;
+  client_id: number;
+  products: {
+    product_id: number;
+    quantity: number;
   }[];
 }
 
